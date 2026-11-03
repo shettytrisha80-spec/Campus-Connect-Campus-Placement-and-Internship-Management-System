@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | CampusConnect</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 32px 18px;
+            min-height: 100vh;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .logout {
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: #dc2626;
+            color: white;
+            text-decoration: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            padding: 22px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 16px #0f172a0d;
+        }
+
+        .card h2 {
+            margin: 0 0 12px;
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .count {
+            color: #4f46e5;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="top">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Welcome, {{ session.get('full_name', 'Admin') }}</p>
+        </div>
+
+        <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Students</h2>
+            <div class="count">{{ counts['student_count'] }}</div>
+        </div>
+
+        <div class="card">
+            <h2>Recruiters</h2>
+            <div class="count">{{ counts['recruiter_count'] }}</div>
+        </div>
+
+        <div class="card">
+            <h2>Companies</h2>
+            <div class="count">{{ counts['company_count'] }}</div>
+        </div>
+
+        <div class="card">
+            <h2>Job Listings</h2>
+            <div class="count">{{ counts['job_count'] }}</div>
+        </div>
+
+        <div class="card">
+            <h2>Applications</h2>
+            <div class="count">{{ counts['application_count'] }}</div>
+        </div>
+        <a href="{{ url_for('admin_users') }}"
+   style="display:block; padding:18px; background:#4f46e5; color:white;
+          border-radius:12px; text-align:center; text-decoration:none;">
+    Manage Students &amp; Recruiters
+</a>
+<a href="{{ url_for('company_list') }}"
+   style="display:block; padding:18px; margin-top:12px;
+          background:#0f766e; color:white; border-radius:12px;
+          text-align:center; text-decoration:none;">
+    Manage Companies
+</a>
+<a href="{{ url_for('admin_jobs') }}"
+   style="display:block; padding:18px; margin-top:12px;
+          background:#7c3aed; color:white; border-radius:12px;
+          text-align:center; text-decoration:none;">
+    Manage Jobs &amp; Internships
+</a>
+<a href="{{ url_for('admin_applications') }}"
+   style="display:block; padding:18px; margin-top:12px;
+          background:#ea580c; color:white; border-radius:12px;
+          text-align:center; text-decoration:none;">
+    Manage Applications
+</a>
+<a href="{{ url_for('admin_reports') }}"
+   style="display:block; padding:18px; margin-top:12px;
+          background:#0891b2; color:white; border-radius:12px;
+          text-align:center; text-decoration:none;">
+    View Reports
+</a>
+<a href="{{ url_for('my_applications') }}">
+    My Applications
+</a>
+    </div>
+
+</div>
+</body>
+</html>

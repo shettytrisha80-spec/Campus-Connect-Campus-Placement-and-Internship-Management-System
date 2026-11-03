@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Companies | CampusConnect</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        body {
+            background: linear-gradient(135deg, #eef4ff, #e0f7fa);
+            min-height: 100vh;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            margin-top: 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.10);
+        }
+
+        .company-card {
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .company-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .company-icon {
+            font-size: 45px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="main-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h2 class="fw-bold">
+                    🏢 Registered Companies
+                </h2>
+
+                <p class="text-muted">
+                    Campus Placement Companies
+                </p>
+
+            </div>
+
+            <a href="/company_register"
+               class="btn btn-primary">
+
+                + Add Company
+
+            </a>
+
+        </div>
+
+        <hr>
+
+        {% if companies %}
+
+        <div class="row g-4 mt-2">
+
+            {% for company in companies %}
+
+            <div class="col-md-6">
+
+                <div class="card company-card p-4 h-100">
+
+                    <div class="company-icon">
+                        🏢
+                    </div>
+
+                    <h4 class="fw-bold mt-2">
+                        {{ company[1] }}
+                    </h4>
+
+                    <p class="mb-2">
+
+                        <strong>HR:</strong>
+                        {{ company[2] }}
+
+                    </p>
+
+                    <p class="mb-2">
+
+                        <strong>Email:</strong>
+                        {{ company[3] }}
+
+                    </p>
+
+                    <p class="mb-2">
+
+                        <strong>Phone:</strong>
+                        {{ company[4] }}
+
+                    </p>
+
+                    {% if company[5] %}
+
+                    <p class="mb-3">
+
+                        <strong>Website:</strong>
+                        {{ company[5] }}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <div style="font-size: 60px;">
+                🏢
+            </div>
+
+            <h4 class="mt-3">
+                No Companies Registered
+            </h4>
+
+            <p class="text-muted">
+                Start by registering your first company.
+            </p>
+
+            <a href="/company_register"
+               class="btn btn-primary">
+
+                Register Company
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+        <div class="mt-4">
+
+            <a href="/recruiter_dashboard"
+               class="text-decoration-none">
+
+                ← Back to Recruiter Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

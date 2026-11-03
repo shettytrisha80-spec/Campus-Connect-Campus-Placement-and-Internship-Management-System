@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | CampusConnect</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 18px;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        th {
+            background: #eef2ff;
+            color: #3730a3;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .role {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 16px;
+            background: #e0e7ff;
+            color: #3730a3;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .empty {
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Manage Students &amp; Recruiters</h1>
+
+    <a class="back" href="{{ url_for('admin_dashboard') }}">
+        ← Back to Admin Dashboard
+    </a>
+
+    {% if users %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Account</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user['user_id'] }}</td>
+                            <td>{{ user['full_name'] }}</td>
+                            <td>{{ user['email'] }}</td>
+                            <td><span class="role">{{ user['role'] }}</span></td>
+                            <td>
+    <form
+        method="POST"
+        action="{{ url_for('admin_toggle_user', user_id=user['user_id']) }}"
+    >
+        <button type="submit">
+            {{ "Disable" if user['is_active'] else "Enable" }}
+        </button>
+    </form>
+</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty">
+            No student or recruiter accounts found.
+        </div>
+    {% endif %}
+
+</div>
+</body>
+</html>

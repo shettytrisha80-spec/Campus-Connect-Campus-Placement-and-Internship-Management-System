@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Interview | CampusConnect</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 18px;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .card {
+            padding: 25px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 16px #0f172a0d;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            border: 0;
+            border-radius: 9px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        .flash {
+            padding: 12px;
+            margin-bottom: 14px;
+            border-radius: 8px;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <a class="back" href="{{ url_for('recruiter_applications') }}">
+        ← Back to Applications
+    </a>
+
+    <div class="card">
+        <h1>Schedule Interview</h1>
+
+        <p>
+            <strong>Applicant:</strong> {{ application['student_name'] }}<br>
+            <strong>Position:</strong> {{ application['job_title'] }}<br>
+            <strong>Company:</strong> {{ application['company_name'] }}
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form
+            method="POST"
+            action="{{ url_for('schedule_interview', application_id=application['application_id']) }}"
+        >
+            <label for="interview_datetime">Interview Date and Time</label>
+            <input
+                type="datetime-local"
+                id="interview_datetime"
+                name="interview_datetime"
+                required
+            >
+
+            <label for="interview_mode">Interview Mode</label>
+            <select id="interview_mode" name="interview_mode" required>
+                <option value="">Select mode</option>
+                <option value="Online">Online</option>
+                <option value="In-person">In-person</option>
+            </select>
+
+            <label for="location_or_link">Meeting Link or Location</label>
+            <input
+                type="text"
+                id="location_or_link"
+                name="location_or_link"
+                maxlength="500"
+                placeholder="Video call link or interview address"
+            >
+
+            <label for="notes">Additional Notes (optional)</label>
+            <textarea
+                id="notes"
+                name="notes"
+                placeholder="Add any instructions for the applicant..."
+            ></textarea>
+
+            <button type="submit">Schedule Interview</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

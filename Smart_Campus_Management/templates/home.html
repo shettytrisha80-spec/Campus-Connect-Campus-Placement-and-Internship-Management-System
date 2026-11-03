@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect | Placement Portal</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+        }
+
+        .navbar {
+            background: #111827;
+            padding: 18px 8%;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .navbar-brand:hover {
+            color: #60a5fa;
+        }
+
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #111827, #1d4ed8);
+            color: white;
+            padding: 50px 0;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            font-weight: 800;
+            line-height: 1.12;
+        }
+
+        .hero p {
+            margin: 25px 0;
+            color: #dbeafe;
+            font-size: 19px;
+            line-height: 1.6;
+        }
+
+        .btn-main {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: #1d4ed8;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-main:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .btn-outline-main {
+            display: inline-block;
+            padding: 14px 30px;
+            border: 1px solid white;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-outline-main:hover {
+            background: white;
+            color: #1d4ed8;
+        }
+
+        .hero-visual {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            background: #ffffff;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .visual-heading {
+            margin: 0 0 6px;
+            color: #111827;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        /* This selector is outside the mobile media query,
+           so it works on desktop and mobile screens. */
+        .hero .hero-visual p.visual-subtitle {
+            margin: 0 0 22px;
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .visual-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 12px;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 13px;
+            background: #f8fafc;
+        }
+
+        .visual-icon {
+            display: grid;
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            place-items: center;
+            border-radius: 12px;
+            background: #eef2ff;
+            font-size: 23px;
+        }
+
+        .visual-item strong {
+            display: block;
+            color: #1e293b;
+            font-size: 15px;
+        }
+
+        .visual-item span {
+            display: block;
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .visual-footer {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 11px;
+            background: #eef2ff;
+            color: #334155;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .feature-section {
+            padding: 70px 8%;
+        }
+
+        .feature-card {
+            height: 100%;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            margin-bottom: 15px;
+            font-size: 40px;
+        }
+
+        .admin-button {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 10px 16px;
+            border: 1px solid #64748b;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .admin-button:hover {
+            background: white;
+            color: #111827;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .navbar-brand {
+                font-size: 20px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 60px 0;
+            }
+
+            .hero-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .hero-visual {
+                max-width: 600px;
+            }
+
+            .admin-button {
+                margin: 8px 0 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .hero-visual {
+                padding: 21px;
+            }
+
+            .btn-main,
+            .btn-outline-main {
+                margin: 6px 5px 6px 0;
+                padding: 12px 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand text-decoration-none" href="/">
+            🎓 CampusConnect
+        </a>
+
+        <div>
+            <a href="/login" class="btn btn-outline-light me-2">
+                🔐 Login
+            </a>
+
+            <a href="/student_register" class="btn btn-primary">
+                🎓 Register
+            </a>
+
+            <a href="/login" class="admin-button">
+                🛡️ Admin Login
+            </a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-layout">
+
+            <div class="hero-content">
+                <h1>
+                    Your Career.<br>
+                    Our Campus.<br>
+                    Your Future.
+                </h1>
+
+                <p>
+                    A smart campus placement and internship management platform
+                    connecting students, recruiters, and opportunities.
+                </p>
+
+                <a href="/student_register" class="btn-main">
+                    🚀 Get Started
+                </a>
+
+                <a href="/login" class="btn-outline-main">
+                    🔐 Login
+                </a>
+            </div>
+
+            <div class="hero-visual">
+                <h2 class="visual-heading">Your Placement Journey</h2>
+
+                <p class="visual-subtitle">
+                    Everything you need, in one place.
+                </p>
+
+                <div class="visual-item">
+                    <div class="visual-icon">🎓</div>
+                    <div>
+                        <strong>Build your profile</strong>
+                        <span>Showcase your education and skills</span>
+                    </div>
+                </div>
+
+                <div class="visual-item">
+                    <div class="visual-icon">💼</div>
+                    <div>
+                        <strong>Explore opportunities</strong>
+                        <span>Find jobs and internships</span>
+                    </div>
+                </div>
+
+                <div class="visual-item">
+                    <div class="visual-icon">📋</div>
+                    <div>
+                        <strong>Track applications</strong>
+                        <span>Follow applications and interviews</span>
+                    </div>
+                </div>
+
+                <div class="visual-footer">
+                    ✨ Take the next step toward your career with CampusConnect.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="feature-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Everything You Need</h2>
+            <p class="text-muted">
+                One platform for your complete placement journey.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h4>Student Portal</h4>
+                    <p class="text-muted">
+                        Create your profile, discover opportunities, and manage
+                        your applications.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h4>Recruiter Portal</h4>
+                    <p class="text-muted">
+                        Recruit talented students and manage job and internship
+                        opportunities.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Smart Management</h4>
+                    <p class="text-muted">
+                        Track applications, interviews, selections, and
+                        placement statistics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

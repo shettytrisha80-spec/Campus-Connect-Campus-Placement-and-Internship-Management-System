@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Job or Internship | CampusConnect</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 35px 18px;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        .container {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin: 0 0 25px;
+            text-align: center;
+            color: #1e293b;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 7px;
+            color: #475569;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: 0;
+            border-radius: 10px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4338ca;
+        }
+
+        .flash {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .back {
+            display: block;
+            margin-top: 18px;
+            text-align: center;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Create Job or Internship</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('job_create') }}">
+            <div class="grid">
+
+                <div class="field">
+                    <label for="company_name">Company</label>
+                    <select id="company_name" name="company_name" required>
+                        <option value="">Select a company</option>
+                        {% for company in companies %}
+                            <option value="{{ company[0] }}">
+                                {{ company[0] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="job_type">Type</label>
+                    <select id="job_type" name="job_type" required>
+                        <option value="">Select type</option>
+                        <option value="Job">Job</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+                </div>
+
+                <div class="field full">
+                    <label for="job_title">Job or Internship Title</label>
+                    <input
+                        type="text"
+                        id="job_title"
+                        name="job_title"
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="location">Location</label>
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="salary">Salary or Stipend</label>
+                    <input
+                        type="text"
+                        id="salary"
+                        name="salary"
+                        maxlength="50"
+                        placeholder="Example: ₹30,000/month"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="eligibility">Eligibility</label>
+                    <input
+                        type="text"
+                        id="eligibility"
+                        name="eligibility"
+                        maxlength="50"
+                        placeholder="Example: BSc, CGPA 7+"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="application_deadline">Application Deadline</label>
+                    <input
+                        type="date"
+                        id="application_deadline"
+                        name="application_deadline"
+                    >
+                </div>
+
+                <div class="field full">
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Describe the role and responsibilities..."
+                        required
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit">Create Listing</button>
+        </form>
+
+        <a class="back" href="{{ url_for('recruiter_dashboard') }}">
+            ← Back to Recruiter Dashboard
+        </a>
+    </div>
+</div>
+</body>
+</html>

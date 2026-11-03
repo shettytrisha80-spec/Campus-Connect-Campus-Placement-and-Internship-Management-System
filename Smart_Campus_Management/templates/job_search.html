@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Jobs | CampusConnect</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 18px;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .filter-card,
+        .job-card,
+        .empty {
+            background: white;
+            padding: 22px;
+            margin-bottom: 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 16px #0f172a0d;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 12px;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            border: 0;
+            background: #4f46e5;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .type {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #4338ca;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 22px;
+            color: #475569;
+        }
+
+        .description {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .back {
+            display: inline-block;
+            margin: 8px 0 20px;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        .flash {
+    padding: 12px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    background: #dcfce7;
+    color: #166534;
+}
+
+        @media (max-width: 750px) {
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .filters {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Find Jobs &amp; Internships</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <a class="back" href="{{ url_for('dashboard') }}">
+        ← Back to Dashboard
+    </a>
+
+    <div class="filter-card">
+        <form method="GET" action="{{ url_for('job_search') }}">
+            <div class="filters">
+
+                <input
+                    type="search"
+                    name="q"
+                    placeholder="Search title, company or description"
+                    value="{{ keyword }}"
+                >
+
+                <select name="company">
+                    <option value="">All companies</option>
+                    {% for company in companies %}
+                        <option
+                            value="{{ company['company_name'] }}"
+                            {% if selected_company == company['company_name'] %}selected{% endif %}
+                        >
+                            {{ company['company_name'] }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <select name="job_type">
+                    <option value="">All types</option>
+                    <option value="Job" {% if selected_type == "Job" %}selected{% endif %}>
+                        Job
+                    </option>
+                    <option value="Internship" {% if selected_type == "Internship" %}selected{% endif %}>
+                        Internship
+                    </option>
+                </select>
+
+                <input
+                    type="search"
+                    name="location"
+                    placeholder="Location"
+                    value="{{ selected_location }}"
+                >
+
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    {% if jobs %}
+        {% for job in jobs %}
+            <div class="job-card">
+                <span class="type">{{ job['job_type'] or "Job" }}</span>
+                <h2>{{ job['job_title'] }}</h2>
+
+                <div class="details">
+                    <span><strong>Company:</strong> {{ job['company_name'] }}</span>
+                    <span><strong>Location:</strong> {{ job['location'] }}</span>
+                    <span><strong>Salary/Stipend:</strong> {{ job['salary'] or "Not specified" }}</span>
+                    <span><strong>Eligibility:</strong> {{ job['eligibility'] or "Not specified" }}</span>
+                    <span><strong>Deadline:</strong> {{ job['application_deadline'] or "Not specified" }}</span>
+                </div>
+
+                <h3>Description</h3>
+                <p class="description">{{ job['description'] or "No description provided." }}</p>
+                <a
+    href="{{ url_for('job_apply', job_id=job['job_id']) }}"
+    style="
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        background: #4f46e5;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    "
+>
+    Apply Now
+</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">
+            <h2>No matching listings found</h2>
+            <p>Try changing or clearing your search filters.</p>
+        </div>
+    {% endif %}
+
+</div>
+</body>
+</html>
